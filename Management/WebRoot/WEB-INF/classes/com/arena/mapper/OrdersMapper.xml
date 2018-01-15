@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.arena.mapper.OrdersMapper" >
+  <resultMap id="BaseResultMap" type="com.arena.pojo.Orders" >
+    <id column="oid" property="oid" jdbcType="INTEGER" />
+    <result column="oname" property="oname" jdbcType="VARCHAR" />
+    <result column="orenttime" property="orenttime" jdbcType="TIMESTAMP" />
+    <result column="obacktime" property="obacktime" jdbcType="TIMESTAMP" />
+    <result column="oprize" property="oprize" jdbcType="REAL" />
+    <result column="onumber" property="onumber" jdbcType="INTEGER" />
+    <result column="odepartment" property="odepartment" jdbcType="VARCHAR" />
+    <result column="operprize" property="operprize" jdbcType="REAL" />
+    <result column="oeid" property="oeid" jdbcType="VARCHAR" />
+    <result column="oorderstime" property="oorderstime" jdbcType="TIMESTAMP" />
+    <result column="ofirst" property="ofirst" jdbcType="VARCHAR" />
+    <result column="osecond" property="osecond" jdbcType="REAL" />
+    <result column="othird" property="othird" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    oid, oname, orenttime, obacktime, oprize, onumber, odepartment, operprize, oeid, 
+    oorderstime, ofirst, osecond, othird
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.arena.pojo.OrdersExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from orders
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from orders
+    where oid = #{oid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from orders
+    where oid = #{oid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.arena.pojo.OrdersExample" >
+    delete from orders
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.arena.pojo.Orders" >
+    insert into orders (oid, oname, orenttime, 
+      obacktime, oprize, onumber, 
+      odepartment, operprize, oeid, 
+      oorderstime, ofirst, osecond, 
+      othird)
+    values (#{oid,jdbcType=INTEGER}, #{oname,jdbcType=VARCHAR}, #{orenttime,jdbcType=TIMESTAMP}, 
+      #{obacktime,jdbcType=TIMESTAMP}, #{oprize,jdbcType=REAL}, #{onumber,jdbcType=INTEGER}, 
+      #{odepartment,jdbcType=VARCHAR}, #{operprize,jdbcType=REAL}, #{oeid,jdbcType=VARCHAR}, 
+      #{oorderstime,jdbcType=TIMESTAMP}, #{ofirst,jdbcType=VARCHAR}, #{osecond,jdbcType=REAL}, 
+      #{othird,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.arena.pojo.Orders" >
+    insert into orders
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="oid != null" >
+        oid,
+      </if>
+      <if test="oname != null" >
+        oname,
+      </if>
+      <if test="orenttime != null" >
+        orenttime,
+      </if>
+      <if test="obacktime != null" >
+        obacktime,
+      </if>
+      <if test="oprize != null" >
+        oprize,
+      </if>
+      <if test="onumber != null" >
+        onumber,
+      </if>
+      <if test="odepartment != null" >
+        odepartment,
+      </if>
+      <if test="operprize != null" >
+        operprize,
+      </if>
+      <if test="oeid != null" >
+        oeid,
+      </if>
+      <if test="oorderstime != null" >
+        oorderstime,
+      </if>
+      <if test="ofirst != null" >
+        ofirst,
+      </if>
+      <if test="osecond != null" >
+        osecond,
+      </if>
+      <if test="othird != null" >
+        othird,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="oid != null" >
+        #{oid,jdbcType=INTEGER},
+      </if>
+      <if test="oname != null" >
+        #{oname,jdbcType=VARCHAR},
+      </if>
+      <if test="orenttime != null" >
+        #{orenttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="obacktime != null" >
+        #{obacktime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="oprize != null" >
+        #{oprize,jdbcType=REAL},
+      </if>
+      <if test="onumber != null" >
+        #{onumber,jdbcType=INTEGER},
+      </if>
+      <if test="odepartment != null" >
+        #{odepartment,jdbcType=VARCHAR},
+      </if>
+      <if test="operprize != null" >
+        #{operprize,jdbcType=REAL},
+      </if>
+      <if test="oeid != null" >
+        #{oeid,jdbcType=VARCHAR},
+      </if>
+      <if test="oorderstime != null" >
+        #{oorderstime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ofirst != null" >
+        #{ofirst,jdbcType=VARCHAR},
+      </if>
+      <if test="osecond != null" >
+        #{osecond,jdbcType=REAL},
+      </if>
+      <if test="othird != null" >
+        #{othird,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.arena.pojo.OrdersExample" resultType="java.lang.Integer" >
+    select count(*) from orders
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update orders
+    <set >
+      <if test="record.oid != null" >
+        oid = #{record.oid,jdbcType=INTEGER},
+      </if>
+      <if test="record.oname != null" >
+        oname = #{record.oname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orenttime != null" >
+        orenttime = #{record.orenttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.obacktime != null" >
+        obacktime = #{record.obacktime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.oprize != null" >
+        oprize = #{record.oprize,jdbcType=REAL},
+      </if>
+      <if test="record.onumber != null" >
+        onumber = #{record.onumber,jdbcType=INTEGER},
+      </if>
+      <if test="record.odepartment != null" >
+        odepartment = #{record.odepartment,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operprize != null" >
+        operprize = #{record.operprize,jdbcType=REAL},
+      </if>
+      <if test="record.oeid != null" >
+        oeid = #{record.oeid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.oorderstime != null" >
+        oorderstime = #{record.oorderstime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.ofirst != null" >
+        ofirst = #{record.ofirst,jdbcType=VARCHAR},
+      </if>
+      <if test="record.osecond != null" >
+        osecond = #{record.osecond,jdbcType=REAL},
+      </if>
+      <if test="record.othird != null" >
+        othird = #{record.othird,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update orders
+    set oid = #{record.oid,jdbcType=INTEGER},
+      oname = #{record.oname,jdbcType=VARCHAR},
+      orenttime = #{record.orenttime,jdbcType=TIMESTAMP},
+      obacktime = #{record.obacktime,jdbcType=TIMESTAMP},
+      oprize = #{record.oprize,jdbcType=REAL},
+      onumber = #{record.onumber,jdbcType=INTEGER},
+      odepartment = #{record.odepartment,jdbcType=VARCHAR},
+      operprize = #{record.operprize,jdbcType=REAL},
+      oeid = #{record.oeid,jdbcType=VARCHAR},
+      oorderstime = #{record.oorderstime,jdbcType=TIMESTAMP},
+      ofirst = #{record.ofirst,jdbcType=VARCHAR},
+      osecond = #{record.osecond,jdbcType=REAL},
+      othird = #{record.othird,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.arena.pojo.Orders" >
+    update orders
+    <set >
+      <if test="oname != null" >
+        oname = #{oname,jdbcType=VARCHAR},
+      </if>
+      <if test="orenttime != null" >
+        orenttime = #{orenttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="obacktime != null" >
+        obacktime = #{obacktime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="oprize != null" >
+        oprize = #{oprize,jdbcType=REAL},
+      </if>
+      <if test="onumber != null" >
+        onumber = #{onumber,jdbcType=INTEGER},
+      </if>
+      <if test="odepartment != null" >
+        odepartment = #{odepartment,jdbcType=VARCHAR},
+      </if>
+      <if test="operprize != null" >
+        operprize = #{operprize,jdbcType=REAL},
+      </if>
+      <if test="oeid != null" >
+        oeid = #{oeid,jdbcType=VARCHAR},
+      </if>
+      <if test="oorderstime != null" >
+        oorderstime = #{oorderstime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ofirst != null" >
+        ofirst = #{ofirst,jdbcType=VARCHAR},
+      </if>
+      <if test="osecond != null" >
+        osecond = #{osecond,jdbcType=REAL},
+      </if>
+      <if test="othird != null" >
+        othird = #{othird,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where oid = #{oid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.arena.pojo.Orders" >
+    update orders
+    set oname = #{oname,jdbcType=VARCHAR},
+      orenttime = #{orenttime,jdbcType=TIMESTAMP},
+      obacktime = #{obacktime,jdbcType=TIMESTAMP},
+      oprize = #{oprize,jdbcType=REAL},
+      onumber = #{onumber,jdbcType=INTEGER},
+      odepartment = #{odepartment,jdbcType=VARCHAR},
+      operprize = #{operprize,jdbcType=REAL},
+      oeid = #{oeid,jdbcType=VARCHAR},
+      oorderstime = #{oorderstime,jdbcType=TIMESTAMP},
+      ofirst = #{ofirst,jdbcType=VARCHAR},
+      osecond = #{osecond,jdbcType=REAL},
+      othird = #{othird,jdbcType=TIMESTAMP}
+    where oid = #{oid,jdbcType=INTEGER}
+  </update>
+</mapper>

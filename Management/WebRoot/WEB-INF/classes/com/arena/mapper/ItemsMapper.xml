@@ -1,0 +1,424 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.arena.mapper.ItemsMapper" >
+  <resultMap id="BaseResultMap" type="com.arena.pojo.Items" >
+    <id column="eid" property="eid" jdbcType="VARCHAR" />
+    <result column="ename" property="ename" jdbcType="VARCHAR" />
+    <result column="ebacktime" property="ebacktime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="erenttime" property="erenttime" jdbcType="TIMESTAMP" />
+    <result column="rname" property="rname" jdbcType="VARCHAR" />
+    <result column="rdepartment" property="rdepartment" jdbcType="VARCHAR" />
+    <result column="etype" property="etype" jdbcType="VARCHAR" />
+    <result column="efactory" property="efactory" jdbcType="VARCHAR" />
+    <result column="eseries" property="eseries" jdbcType="VARCHAR" />
+    <result column="ebuytime" property="ebuytime" jdbcType="TIMESTAMP" />
+    <result column="eprice" property="eprice" jdbcType="REAL" />
+    <result column="emaintaintime" property="emaintaintime" jdbcType="TIMESTAMP" />
+    <result column="espacefirst" property="espacefirst" jdbcType="VARCHAR" />
+    <result column="espacesecond" property="espacesecond" jdbcType="VARCHAR" />
+    <result column="espacethird" property="espacethird" jdbcType="TIMESTAMP" />
+    <result column="espaceforth" property="espaceforth" jdbcType="INTEGER" />
+    <result column="espacefifth" property="espacefifth" jdbcType="REAL" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    eid, ename, ebacktime, status, erenttime, rname, rdepartment, etype, efactory, eseries, 
+    ebuytime, eprice, emaintaintime, espacefirst, espacesecond, espacethird, espaceforth, 
+    espacefifth
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.arena.pojo.ItemsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from items
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from items
+    where eid = #{eid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from items
+    where eid = #{eid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.arena.pojo.ItemsExample" >
+    delete from items
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.arena.pojo.Items" >
+    insert into items (eid, ename, ebacktime, 
+      status, erenttime, rname, 
+      rdepartment, etype, efactory, 
+      eseries, ebuytime, eprice, 
+      emaintaintime, espacefirst, espacesecond, 
+      espacethird, espaceforth, espacefifth
+      )
+    values (#{eid,jdbcType=VARCHAR}, #{ename,jdbcType=VARCHAR}, #{ebacktime,jdbcType=TIMESTAMP}, 
+      #{status,jdbcType=VARCHAR}, #{erenttime,jdbcType=TIMESTAMP}, #{rname,jdbcType=VARCHAR}, 
+      #{rdepartment,jdbcType=VARCHAR}, #{etype,jdbcType=VARCHAR}, #{efactory,jdbcType=VARCHAR}, 
+      #{eseries,jdbcType=VARCHAR}, #{ebuytime,jdbcType=TIMESTAMP}, #{eprice,jdbcType=REAL}, 
+      #{emaintaintime,jdbcType=TIMESTAMP}, #{espacefirst,jdbcType=VARCHAR}, #{espacesecond,jdbcType=VARCHAR}, 
+      #{espacethird,jdbcType=TIMESTAMP}, #{espaceforth,jdbcType=INTEGER}, #{espacefifth,jdbcType=REAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.arena.pojo.Items" >
+    insert into items
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="eid != null" >
+        eid,
+      </if>
+      <if test="ename != null" >
+        ename,
+      </if>
+      <if test="ebacktime != null" >
+        ebacktime,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="erenttime != null" >
+        erenttime,
+      </if>
+      <if test="rname != null" >
+        rname,
+      </if>
+      <if test="rdepartment != null" >
+        rdepartment,
+      </if>
+      <if test="etype != null" >
+        etype,
+      </if>
+      <if test="efactory != null" >
+        efactory,
+      </if>
+      <if test="eseries != null" >
+        eseries,
+      </if>
+      <if test="ebuytime != null" >
+        ebuytime,
+      </if>
+      <if test="eprice != null" >
+        eprice,
+      </if>
+      <if test="emaintaintime != null" >
+        emaintaintime,
+      </if>
+      <if test="espacefirst != null" >
+        espacefirst,
+      </if>
+      <if test="espacesecond != null" >
+        espacesecond,
+      </if>
+      <if test="espacethird != null" >
+        espacethird,
+      </if>
+      <if test="espaceforth != null" >
+        espaceforth,
+      </if>
+      <if test="espacefifth != null" >
+        espacefifth,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="eid != null" >
+        #{eid,jdbcType=VARCHAR},
+      </if>
+      <if test="ename != null" >
+        #{ename,jdbcType=VARCHAR},
+      </if>
+      <if test="ebacktime != null" >
+        #{ebacktime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="erenttime != null" >
+        #{erenttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rname != null" >
+        #{rname,jdbcType=VARCHAR},
+      </if>
+      <if test="rdepartment != null" >
+        #{rdepartment,jdbcType=VARCHAR},
+      </if>
+      <if test="etype != null" >
+        #{etype,jdbcType=VARCHAR},
+      </if>
+      <if test="efactory != null" >
+        #{efactory,jdbcType=VARCHAR},
+      </if>
+      <if test="eseries != null" >
+        #{eseries,jdbcType=VARCHAR},
+      </if>
+      <if test="ebuytime != null" >
+        #{ebuytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="eprice != null" >
+        #{eprice,jdbcType=REAL},
+      </if>
+      <if test="emaintaintime != null" >
+        #{emaintaintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="espacefirst != null" >
+        #{espacefirst,jdbcType=VARCHAR},
+      </if>
+      <if test="espacesecond != null" >
+        #{espacesecond,jdbcType=VARCHAR},
+      </if>
+      <if test="espacethird != null" >
+        #{espacethird,jdbcType=TIMESTAMP},
+      </if>
+      <if test="espaceforth != null" >
+        #{espaceforth,jdbcType=INTEGER},
+      </if>
+      <if test="espacefifth != null" >
+        #{espacefifth,jdbcType=REAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.arena.pojo.ItemsExample" resultType="java.lang.Integer" >
+    select count(*) from items
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update items
+    <set >
+      <if test="record.eid != null" >
+        eid = #{record.eid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ename != null" >
+        ename = #{record.ename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ebacktime != null" >
+        ebacktime = #{record.ebacktime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.erenttime != null" >
+        erenttime = #{record.erenttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.rname != null" >
+        rname = #{record.rname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rdepartment != null" >
+        rdepartment = #{record.rdepartment,jdbcType=VARCHAR},
+      </if>
+      <if test="record.etype != null" >
+        etype = #{record.etype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.efactory != null" >
+        efactory = #{record.efactory,jdbcType=VARCHAR},
+      </if>
+      <if test="record.eseries != null" >
+        eseries = #{record.eseries,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ebuytime != null" >
+        ebuytime = #{record.ebuytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.eprice != null" >
+        eprice = #{record.eprice,jdbcType=REAL},
+      </if>
+      <if test="record.emaintaintime != null" >
+        emaintaintime = #{record.emaintaintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.espacefirst != null" >
+        espacefirst = #{record.espacefirst,jdbcType=VARCHAR},
+      </if>
+      <if test="record.espacesecond != null" >
+        espacesecond = #{record.espacesecond,jdbcType=VARCHAR},
+      </if>
+      <if test="record.espacethird != null" >
+        espacethird = #{record.espacethird,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.espaceforth != null" >
+        espaceforth = #{record.espaceforth,jdbcType=INTEGER},
+      </if>
+      <if test="record.espacefifth != null" >
+        espacefifth = #{record.espacefifth,jdbcType=REAL},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update items
+    set eid = #{record.eid,jdbcType=VARCHAR},
+      ename = #{record.ename,jdbcType=VARCHAR},
+      ebacktime = #{record.ebacktime,jdbcType=TIMESTAMP},
+      status = #{record.status,jdbcType=VARCHAR},
+      erenttime = #{record.erenttime,jdbcType=TIMESTAMP},
+      rname = #{record.rname,jdbcType=VARCHAR},
+      rdepartment = #{record.rdepartment,jdbcType=VARCHAR},
+      etype = #{record.etype,jdbcType=VARCHAR},
+      efactory = #{record.efactory,jdbcType=VARCHAR},
+      eseries = #{record.eseries,jdbcType=VARCHAR},
+      ebuytime = #{record.ebuytime,jdbcType=TIMESTAMP},
+      eprice = #{record.eprice,jdbcType=REAL},
+      emaintaintime = #{record.emaintaintime,jdbcType=TIMESTAMP},
+      espacefirst = #{record.espacefirst,jdbcType=VARCHAR},
+      espacesecond = #{record.espacesecond,jdbcType=VARCHAR},
+      espacethird = #{record.espacethird,jdbcType=TIMESTAMP},
+      espaceforth = #{record.espaceforth,jdbcType=INTEGER},
+      espacefifth = #{record.espacefifth,jdbcType=REAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.arena.pojo.Items" >
+    update items
+    <set >
+      <if test="ename != null" >
+        ename = #{ename,jdbcType=VARCHAR},
+      </if>
+      <if test="ebacktime != null" >
+        ebacktime = #{ebacktime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="erenttime != null" >
+        erenttime = #{erenttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rname != null" >
+        rname = #{rname,jdbcType=VARCHAR},
+      </if>
+      <if test="rdepartment != null" >
+        rdepartment = #{rdepartment,jdbcType=VARCHAR},
+      </if>
+      <if test="etype != null" >
+        etype = #{etype,jdbcType=VARCHAR},
+      </if>
+      <if test="efactory != null" >
+        efactory = #{efactory,jdbcType=VARCHAR},
+      </if>
+      <if test="eseries != null" >
+        eseries = #{eseries,jdbcType=VARCHAR},
+      </if>
+      <if test="ebuytime != null" >
+        ebuytime = #{ebuytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="eprice != null" >
+        eprice = #{eprice,jdbcType=REAL},
+      </if>
+      <if test="emaintaintime != null" >
+        emaintaintime = #{emaintaintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="espacefirst != null" >
+        espacefirst = #{espacefirst,jdbcType=VARCHAR},
+      </if>
+      <if test="espacesecond != null" >
+        espacesecond = #{espacesecond,jdbcType=VARCHAR},
+      </if>
+      <if test="espacethird != null" >
+        espacethird = #{espacethird,jdbcType=TIMESTAMP},
+      </if>
+      <if test="espaceforth != null" >
+        espaceforth = #{espaceforth,jdbcType=INTEGER},
+      </if>
+      <if test="espacefifth != null" >
+        espacefifth = #{espacefifth,jdbcType=REAL},
+      </if>
+    </set>
+    where eid = #{eid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.arena.pojo.Items" >
+    update items
+    set ename = #{ename,jdbcType=VARCHAR},
+      ebacktime = #{ebacktime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=VARCHAR},
+      erenttime = #{erenttime,jdbcType=TIMESTAMP},
+      rname = #{rname,jdbcType=VARCHAR},
+      rdepartment = #{rdepartment,jdbcType=VARCHAR},
+      etype = #{etype,jdbcType=VARCHAR},
+      efactory = #{efactory,jdbcType=VARCHAR},
+      eseries = #{eseries,jdbcType=VARCHAR},
+      ebuytime = #{ebuytime,jdbcType=TIMESTAMP},
+      eprice = #{eprice,jdbcType=REAL},
+      emaintaintime = #{emaintaintime,jdbcType=TIMESTAMP},
+      espacefirst = #{espacefirst,jdbcType=VARCHAR},
+      espacesecond = #{espacesecond,jdbcType=VARCHAR},
+      espacethird = #{espacethird,jdbcType=TIMESTAMP},
+      espaceforth = #{espaceforth,jdbcType=INTEGER},
+      espacefifth = #{espacefifth,jdbcType=REAL}
+    where eid = #{eid,jdbcType=VARCHAR}
+  </update>
+  <!-- 自己添加的 -->
+  <select id="selectAllType"  resultType="String">
+   select distinct ename from items 
+  </select>
+  
+  
+</mapper>

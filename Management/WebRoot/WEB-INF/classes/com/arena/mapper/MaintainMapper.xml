@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.arena.mapper.MaintainMapper" >
+  <resultMap id="BaseResultMap" type="com.arena.pojo.Maintain" >
+    <id column="wid" property="wid" jdbcType="INTEGER" />
+    <result column="weid" property="weid" jdbcType="VARCHAR" />
+    <result column="wname" property="wname" jdbcType="VARCHAR" />
+    <result column="wmaintaintime" property="wmaintaintime" jdbcType="TIMESTAMP" />
+    <result column="wcomponent" property="wcomponent" jdbcType="VARCHAR" />
+    <result column="wreason" property="wreason" jdbcType="VARCHAR" />
+    <result column="wresult" property="wresult" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    wid, weid, wname, wmaintaintime, wcomponent, wreason, wresult
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.arena.pojo.MaintainExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from maintain
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from maintain
+    where wid = #{wid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from maintain
+    where wid = #{wid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.arena.pojo.MaintainExample" >
+    delete from maintain
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.arena.pojo.Maintain" >
+    insert into maintain (wid, weid, wname, 
+      wmaintaintime, wcomponent, wreason, 
+      wresult)
+    values (#{wid,jdbcType=INTEGER}, #{weid,jdbcType=VARCHAR}, #{wname,jdbcType=VARCHAR}, 
+      #{wmaintaintime,jdbcType=TIMESTAMP}, #{wcomponent,jdbcType=VARCHAR}, #{wreason,jdbcType=VARCHAR}, 
+      #{wresult,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.arena.pojo.Maintain" >
+    insert into maintain
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="wid != null" >
+        wid,
+      </if>
+      <if test="weid != null" >
+        weid,
+      </if>
+      <if test="wname != null" >
+        wname,
+      </if>
+      <if test="wmaintaintime != null" >
+        wmaintaintime,
+      </if>
+      <if test="wcomponent != null" >
+        wcomponent,
+      </if>
+      <if test="wreason != null" >
+        wreason,
+      </if>
+      <if test="wresult != null" >
+        wresult,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="wid != null" >
+        #{wid,jdbcType=INTEGER},
+      </if>
+      <if test="weid != null" >
+        #{weid,jdbcType=VARCHAR},
+      </if>
+      <if test="wname != null" >
+        #{wname,jdbcType=VARCHAR},
+      </if>
+      <if test="wmaintaintime != null" >
+        #{wmaintaintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="wcomponent != null" >
+        #{wcomponent,jdbcType=VARCHAR},
+      </if>
+      <if test="wreason != null" >
+        #{wreason,jdbcType=VARCHAR},
+      </if>
+      <if test="wresult != null" >
+        #{wresult,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.arena.pojo.MaintainExample" resultType="java.lang.Integer" >
+    select count(*) from maintain
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update maintain
+    <set >
+      <if test="record.wid != null" >
+        wid = #{record.wid,jdbcType=INTEGER},
+      </if>
+      <if test="record.weid != null" >
+        weid = #{record.weid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wname != null" >
+        wname = #{record.wname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wmaintaintime != null" >
+        wmaintaintime = #{record.wmaintaintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.wcomponent != null" >
+        wcomponent = #{record.wcomponent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wreason != null" >
+        wreason = #{record.wreason,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wresult != null" >
+        wresult = #{record.wresult,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update maintain
+    set wid = #{record.wid,jdbcType=INTEGER},
+      weid = #{record.weid,jdbcType=VARCHAR},
+      wname = #{record.wname,jdbcType=VARCHAR},
+      wmaintaintime = #{record.wmaintaintime,jdbcType=TIMESTAMP},
+      wcomponent = #{record.wcomponent,jdbcType=VARCHAR},
+      wreason = #{record.wreason,jdbcType=VARCHAR},
+      wresult = #{record.wresult,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.arena.pojo.Maintain" >
+    update maintain
+    <set >
+      <if test="weid != null" >
+        weid = #{weid,jdbcType=VARCHAR},
+      </if>
+      <if test="wname != null" >
+        wname = #{wname,jdbcType=VARCHAR},
+      </if>
+      <if test="wmaintaintime != null" >
+        wmaintaintime = #{wmaintaintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="wcomponent != null" >
+        wcomponent = #{wcomponent,jdbcType=VARCHAR},
+      </if>
+      <if test="wreason != null" >
+        wreason = #{wreason,jdbcType=VARCHAR},
+      </if>
+      <if test="wresult != null" >
+        wresult = #{wresult,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where wid = #{wid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.arena.pojo.Maintain" >
+    update maintain
+    set weid = #{weid,jdbcType=VARCHAR},
+      wname = #{wname,jdbcType=VARCHAR},
+      wmaintaintime = #{wmaintaintime,jdbcType=TIMESTAMP},
+      wcomponent = #{wcomponent,jdbcType=VARCHAR},
+      wreason = #{wreason,jdbcType=VARCHAR},
+      wresult = #{wresult,jdbcType=VARCHAR}
+    where wid = #{wid,jdbcType=INTEGER}
+  </update>
+</mapper>

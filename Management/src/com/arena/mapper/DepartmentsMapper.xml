@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.arena.mapper.DepartmentsMapper" >
+  <resultMap id="BaseResultMap" type="com.arena.pojo.Departments" >
+    <id column="did" property="did" jdbcType="INTEGER" />
+    <result column="dname" property="dname" jdbcType="VARCHAR" />
+    <result column="ddate" property="ddate" jdbcType="TIMESTAMP" />
+    <result column="dfirst" property="dfirst" jdbcType="VARCHAR" />
+    <result column="ddetial" property="ddetial" jdbcType="VARCHAR" />
+    <result column="dsecond" property="dsecond" jdbcType="VARCHAR" />
+    <result column="dthird" property="dthird" jdbcType="INTEGER" />
+    <result column="dforth" property="dforth" jdbcType="REAL" />
+    <result column="dfifth" property="dfifth" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    did, dname, ddate, dfirst, ddetial, dsecond, dthird, dforth, dfifth
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.arena.pojo.DepartmentsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from departments
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from departments
+    where did = #{did,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from departments
+    where did = #{did,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.arena.pojo.DepartmentsExample" >
+    delete from departments
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.arena.pojo.Departments" >
+    insert into departments (did, dname, ddate, 
+      dfirst, ddetial, dsecond, 
+      dthird, dforth, dfifth
+      )
+    values (#{did,jdbcType=INTEGER}, #{dname,jdbcType=VARCHAR}, #{ddate,jdbcType=TIMESTAMP}, 
+      #{dfirst,jdbcType=VARCHAR}, #{ddetial,jdbcType=VARCHAR}, #{dsecond,jdbcType=VARCHAR}, 
+      #{dthird,jdbcType=INTEGER}, #{dforth,jdbcType=REAL}, #{dfifth,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.arena.pojo.Departments" >
+    insert into departments
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="did != null" >
+        did,
+      </if>
+      <if test="dname != null" >
+        dname,
+      </if>
+      <if test="ddate != null" >
+        ddate,
+      </if>
+      <if test="dfirst != null" >
+        dfirst,
+      </if>
+      <if test="ddetial != null" >
+        ddetial,
+      </if>
+      <if test="dsecond != null" >
+        dsecond,
+      </if>
+      <if test="dthird != null" >
+        dthird,
+      </if>
+      <if test="dforth != null" >
+        dforth,
+      </if>
+      <if test="dfifth != null" >
+        dfifth,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="did != null" >
+        #{did,jdbcType=INTEGER},
+      </if>
+      <if test="dname != null" >
+        #{dname,jdbcType=VARCHAR},
+      </if>
+      <if test="ddate != null" >
+        #{ddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dfirst != null" >
+        #{dfirst,jdbcType=VARCHAR},
+      </if>
+      <if test="ddetial != null" >
+        #{ddetial,jdbcType=VARCHAR},
+      </if>
+      <if test="dsecond != null" >
+        #{dsecond,jdbcType=VARCHAR},
+      </if>
+      <if test="dthird != null" >
+        #{dthird,jdbcType=INTEGER},
+      </if>
+      <if test="dforth != null" >
+        #{dforth,jdbcType=REAL},
+      </if>
+      <if test="dfifth != null" >
+        #{dfifth,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.arena.pojo.DepartmentsExample" resultType="java.lang.Integer" >
+    select count(*) from departments
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update departments
+    <set >
+      <if test="record.did != null" >
+        did = #{record.did,jdbcType=INTEGER},
+      </if>
+      <if test="record.dname != null" >
+        dname = #{record.dname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ddate != null" >
+        ddate = #{record.ddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.dfirst != null" >
+        dfirst = #{record.dfirst,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ddetial != null" >
+        ddetial = #{record.ddetial,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dsecond != null" >
+        dsecond = #{record.dsecond,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dthird != null" >
+        dthird = #{record.dthird,jdbcType=INTEGER},
+      </if>
+      <if test="record.dforth != null" >
+        dforth = #{record.dforth,jdbcType=REAL},
+      </if>
+      <if test="record.dfifth != null" >
+        dfifth = #{record.dfifth,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update departments
+    set did = #{record.did,jdbcType=INTEGER},
+      dname = #{record.dname,jdbcType=VARCHAR},
+      ddate = #{record.ddate,jdbcType=TIMESTAMP},
+      dfirst = #{record.dfirst,jdbcType=VARCHAR},
+      ddetial = #{record.ddetial,jdbcType=VARCHAR},
+      dsecond = #{record.dsecond,jdbcType=VARCHAR},
+      dthird = #{record.dthird,jdbcType=INTEGER},
+      dforth = #{record.dforth,jdbcType=REAL},
+      dfifth = #{record.dfifth,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.arena.pojo.Departments" >
+    update departments
+    <set >
+      <if test="dname != null" >
+        dname = #{dname,jdbcType=VARCHAR},
+      </if>
+      <if test="ddate != null" >
+        ddate = #{ddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dfirst != null" >
+        dfirst = #{dfirst,jdbcType=VARCHAR},
+      </if>
+      <if test="ddetial != null" >
+        ddetial = #{ddetial,jdbcType=VARCHAR},
+      </if>
+      <if test="dsecond != null" >
+        dsecond = #{dsecond,jdbcType=VARCHAR},
+      </if>
+      <if test="dthird != null" >
+        dthird = #{dthird,jdbcType=INTEGER},
+      </if>
+      <if test="dforth != null" >
+        dforth = #{dforth,jdbcType=REAL},
+      </if>
+      <if test="dfifth != null" >
+        dfifth = #{dfifth,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where did = #{did,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.arena.pojo.Departments" >
+    update departments
+    set dname = #{dname,jdbcType=VARCHAR},
+      ddate = #{ddate,jdbcType=TIMESTAMP},
+      dfirst = #{dfirst,jdbcType=VARCHAR},
+      ddetial = #{ddetial,jdbcType=VARCHAR},
+      dsecond = #{dsecond,jdbcType=VARCHAR},
+      dthird = #{dthird,jdbcType=INTEGER},
+      dforth = #{dforth,jdbcType=REAL},
+      dfifth = #{dfifth,jdbcType=VARCHAR}
+    where did = #{did,jdbcType=INTEGER}
+  </update>
+  <select id="findDepartments" resultType="String">
+  select distinct dname from departments
+  </select>
+</mapper>
